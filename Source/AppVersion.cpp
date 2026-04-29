@@ -1,6 +1,6 @@
 #include "AppVersion.h"
 
-static const int kBuild = 219;
+static const int kBuild = 2;
 
 static const std::string kVersionString = "v" + std::string(VERSION) + " build " + std::to_string(kBuild);
 

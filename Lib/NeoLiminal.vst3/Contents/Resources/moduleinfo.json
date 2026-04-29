@@ -1,0 +1,58 @@
+{
+  "Name": "NeoLiminal",
+  "Version": "0.2",
+  "Factory Info": {
+    "Vendor": "TheOrigamist",
+    "URL": "",
+    "E-Mail": "",
+    "Flags": {
+      "Unicode": true,
+      "Classes Discardable": false,
+      "Component Non Discardable": false,
+    },
+  },
+  "Classes": [
+    {
+      "CID": "ABCDEF019182FAEB4F72676D4C6D6E6C",
+      "Category": "Audio Module Class",
+      "Name": "NeoLiminal",
+      "Vendor": "TheOrigamist",
+      "Version": "0.2",
+      "SDKVersion": "VST 3.7.12",
+      "Sub Categories": [
+        "Fx",
+      ],
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF011234ABCD4F72676D4C6D6E6C",
+      "Category": "Component Controller Class",
+      "Name": "NeoLiminal",
+      "Vendor": "TheOrigamist",
+      "Version": "0.2",
+      "SDKVersion": "VST 3.7.12",
+      "Sub Categories": [
+        "Fx",
+      ],
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF01C0DEF00D4F72676D4C6D6E6C",
+      "Category": "Plugin Compatibility Class",
+      "Name": "NeoLiminal",
+      "Vendor": "TheOrigamist",
+      "Version": "0.2",
+      "SDKVersion": "VST 3.7.12",
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+  ],
+}
