@@ -41,5 +41,6 @@ task :release do
   run "git add -A"
   run "git commit -m 'v#{version}'"
   run "git tag v#{version}"
+  run "git push origin main"
   run "git push origin v#{version}"
 end
