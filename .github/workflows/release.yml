@@ -1,0 +1,98 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache JUCE
+        uses: actions/cache@v4
+        with:
+          path: build/_deps
+          key: macos-juce-8.0.4
+
+      - name: Configure
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES=arm64
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Package
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          pushd build/NeoLiminal_artefacts/Release/VST3
+          zip -r "$GITHUB_WORKSPACE/NeoLiminal-${VERSION}-macOS-VST3.zip" NeoLiminal.vst3
+          popd
+          pushd build/NeoLiminal_artefacts/Release/Standalone
+          zip -r "$GITHUB_WORKSPACE/NeoLiminal-${VERSION}-macOS-AUv3.zip" NeoLiminal.app
+          popd
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-artifacts
+          path: '*.zip'
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache JUCE
+        uses: actions/cache@v4
+        with:
+          path: build/_deps
+          key: windows-juce-8.0.4
+
+      - name: Configure
+        run: cmake -B build -G "Visual Studio 17 2022" -A x86_64
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Package
+        shell: pwsh
+        run: |
+          $version = $env:GITHUB_REF_NAME.TrimStart('v')
+          Compress-Archive -Path "build\NeoLiminal_artefacts\Release\VST3\NeoLiminal.vst3" `
+            -DestinationPath "NeoLiminal-$version-Windows-VST3.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-artifacts
+          path: '*.zip'
+
+  release:
+    needs: [build-macos, build-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+          path: artifacts/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: NeoLiminal ${{ github.ref_name }}
+          files: artifacts/*.zip
+          body: |
+            ## Installation
+
+            ### macOS
+
+            **VST3** : dézipper et copier `NeoLiminal.vst3` dans `~/Library/Audio/Plug-Ins/VST3/`
+
+            **AUv3** : dézipper et copier `NeoLiminal.app` dans `/Applications/`
+            > ⚠️ Non notarisé : si Gatekeeper bloque, lancer `xattr -cr /Applications/NeoLiminal.app` dans le Terminal
+
+            ### Windows
+
+            **VST3** : dézipper et copier `NeoLiminal.vst3` dans `C:\Program Files\Common Files\VST3\`

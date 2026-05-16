@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(NeoLiminal VERSION 0.2)
+project(NeoLiminal VERSION 0.4)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -32,7 +32,7 @@ juce_add_plugin(NeoLiminal
     NEEDS_MIDI_OUTPUT           FALSE
     IS_MIDI_EFFECT              FALSE
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE
-    FORMATS                     VST3 AU
+    FORMATS                     VST3 AUv3 Standalone
 )
 
 juce_generate_juce_header(NeoLiminal)
