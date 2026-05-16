@@ -28,7 +28,19 @@ end
 
 task :install do
   run "cp -r build/NeoLiminal_artefacts/Debug/VST3/NeoLiminal.vst3 Lib/"
-  run "cp -r build/NeoLiminal_artefacts/Debug/AU/NeoLiminal.component Lib/"
+  run "cp -r build/NeoLiminal_artefacts/Debug/Standalone/NeoLiminal.app Lib/"
   run "rm -rf ~/Library/Audio/Plug-Ins/VST3/NeoLiminal.vst3", quiet: true
   run "cp -r Lib/NeoLiminal.vst3 ~/Library/Audio/Plug-Ins/VST3/"
+end
+
+task :release do
+  run :build, :release
+  content = File.read("CMakeLists.txt")
+  content.match(/project\(NeoLiminal VERSION (\d+\.\d+)\)/)
+  version = $1
+  run "git add -A"
+  run "git commit -m 'v#{version}'"
+  run "git tag v#{version}"
+  run "git push origin main"
+  run "git push origin v#{version}"
 end
