@@ -42,4 +42,4 @@ Download the latest release from the [Releases page](../../releases/latest).
 
 ## License
 
-This is under the license : "don't be a dick".
+This is released under the license [Don't Be A Dick](https://dont-be-a-dick.animi.st/).
