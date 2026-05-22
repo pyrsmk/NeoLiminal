@@ -21,11 +21,11 @@ set_source_files_properties(
 )
 
 juce_add_plugin(NeoLiminal
-    COMPANY_NAME                "TheOrigamist"
+    COMPANY_NAME                "TheAnimist"
     COMPANY_WEBSITE             ""
-    PLUGIN_MANUFACTURER_CODE    Orgm
+    PLUGIN_MANUFACTURER_CODE    Anmt
     PLUGIN_CODE                 Lmnl
-    BUNDLE_ID                   "com.theorigamist.neoliminal"
+    BUNDLE_ID                   "com.theanimist.neoliminal"
     PRODUCT_NAME                "NeoLiminal"
     IS_SYNTH                    FALSE
     NEEDS_MIDI_INPUT            FALSE
